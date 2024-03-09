@@ -14,7 +14,7 @@
       <label>{{ .Control.GetLabel }}</label>
       <a href="#" hx-get="{{ .Control.GetURL }}">cancel</a>
     </div>
-    <div class="control-input-wrapper flex-col">
+    <div>
       <textarea name="value" cols="3">{{ .Control.Field.Value }}</textarea>
       <div class="flex items-center">
         {{ if .Control.GetError }}<div class="control-error">{{ .Control.GetError }}</div>{{ end }}

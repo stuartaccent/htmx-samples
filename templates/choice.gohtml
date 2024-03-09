@@ -14,12 +14,13 @@
       <label>{{ .Control.GetLabel }}</label>
       <a href="#" hx-get="{{ .Control.GetURL }}">cancel</a>
     </div>
-    <div class="control-input-wrapper relative">
-      <ul class="choice-list">
+    <div class="relative">
+      <div>{{ .Control.Field.Value }}</div>
+      <ul class="choice-list z-10">
         {{ range .Control.Field.Choices }}
           <li>
             <label class="choice-item">
-              <input class="choice-input" type="radio" name="value" value="{{ . }}"><span>{{ . }}</span>
+              <input class="hidden" type="radio" name="value" value="{{ . }}"><span>{{ . }}</span>
             </label>
           </li>
         {{ end }}

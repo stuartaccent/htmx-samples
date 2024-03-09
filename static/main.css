@@ -16,26 +16,26 @@
     .control-label-wrapper:hover a {
         @apply opacity-100;
     }
-    .control-input-wrapper {
-        @apply flex gap-2;
-    }
-    .control-input-wrapper input,
-    .control-input-wrapper textarea {
+    input,
+    textarea {
         @apply border border-gray-300 rounded p-2 w-full;
     }
-    .control-input-wrapper button {
+    button {
         @apply bg-blue-500 text-white rounded p-2 cursor-pointer;
     }
     .choice-list {
-        @apply absolute top-0 left-0 border border-gray-300 rounded shadow-xl;
+        @apply bg-white absolute top-0 left-0 border border-gray-300 rounded shadow-xl;
     }
     .choice-item {
         @apply block px-4 py-2 min-w-40 hover:bg-gray-50 hover:cursor-pointer;
     }
-    .choice-input {
-        @apply hidden;
-    }
     .control-error {
         @apply text-red-500 text-sm;
+    }
+    .multi-choice-item {
+        @apply bg-gray-200 text-gray-800 rounded px-2 py-1;
+    }
+    input:checked + .multi-choice-item {
+        @apply bg-blue-500 text-white;
     }
 }
