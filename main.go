@@ -37,6 +37,8 @@ func main() {
 	g.POST("/input", InputHandler)
 	g.GET("/textarea", TextareaHandler)
 	g.POST("/textarea", TextareaHandler)
+	g.GET("/choice", ChoiceHandler)
+	g.POST("/choice", ChoiceHandler)
 
 	log.Print("Listening...")
 	http.ListenAndServe(":80", g)
@@ -75,6 +77,25 @@ func TextareaHandler(c *gin.Context) {
 		ReadTemplate: "textareaRead",
 		EditTemplate: "textareaEdit",
 		SaveFunc: func(tx *controls.FormControl[controls.TextField]) error {
+			log.Printf("Saving: %s", tx.Field.Value)
+			return nil
+		},
+	}
+	control.GinHandler(c)
+}
+
+func ChoiceHandler(c *gin.Context) {
+	field := controls.ChoiceField{
+		Value:   "Option 1",
+		Choices: []string{"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"},
+	}
+	var control controls.Control = &controls.FormControl[controls.ChoiceField]{
+		URL:          c.Request.URL.Path,
+		Label:        "Choice",
+		Field:        field,
+		ReadTemplate: "choiceRead",
+		EditTemplate: "choiceEdit",
+		SaveFunc: func(tx *controls.FormControl[controls.ChoiceField]) error {
 			log.Printf("Saving: %s", tx.Field.Value)
 			return nil
 		},

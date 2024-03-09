@@ -1,0 +1,30 @@
+{{ define "choiceRead" }}
+  <div class="control" hx-target="this" hx-swap="outerHTML">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}?edit">edit</a>
+    </div>
+    <div>{{ .Control.Field.Value }}</div>
+  </div>
+{{ end }}
+
+{{ define "choiceEdit" }}
+  <form class="control" hx-target="this" hx-swap="outerHTML" hx-post="{{ .Control.GetURL }}" hx-trigger="change">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}">cancel</a>
+    </div>
+    <div class="control-input-wrapper relative">
+      <ul class="choice-list">
+        {{ range .Control.Field.Choices }}
+          <li>
+            <label class="choice-item">
+              <input class="choice-input" type="radio" name="value" value="{{ . }}"><span>{{ . }}</span>
+            </label>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ if .Control.GetError }}<div class="control-error">{{ .Control.GetError }}</div>{{ end }}
+  </form>
+{{ end }}
