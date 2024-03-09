@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer components {
+    .control {
+        @apply grid gap-2;
+    }
+    .control-label-wrapper {
+        @apply flex items-center gap-4;
+    }
+    .control-label-wrapper label {
+        @apply text-lg font-medium;
+    }
+    .control-label-wrapper a {
+        @apply text-blue-800 text-xs opacity-0 cursor-pointer;
+    }
+    .control-label-wrapper:hover a {
+        @apply opacity-100;
+    }
+    .control-input-wrapper {
+        @apply flex gap-2;
+    }
+    .control-input-wrapper input,
+    .control-input-wrapper textarea {
+        @apply border rounded p-2 w-full;
+    }
+    .control-input-wrapper button {
+        @apply bg-blue-500 text-white rounded p-2 cursor-pointer;
+    }
+    .control-error {
+        @apply text-red-500 text-sm;
+    }
+}

@@ -1,0 +1,15 @@
+{{ define "index" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/main.min.css">
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <title>HTMX</title>
+</head>
+<body class="max-w-3xl p-8 mx-auto grid gap-8">
+  <div hx-get="/input" hx-trigger="load"></div>
+  <div hx-get="/textarea" hx-trigger="load"></div>
+</body>
+</html>
+{{ end }}

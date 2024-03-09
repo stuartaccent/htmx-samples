@@ -1,0 +1,25 @@
+{{ define "textareaRead" }}
+  <div class="control" hx-target="this" hx-swap="outerHTML">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}?edit">edit</a>
+    </div>
+    <div>{{ .Control.Field.Value }}</div>
+  </div>
+{{ end }}
+
+{{ define "textareaEdit" }}
+  <form class="control" hx-target="this" hx-swap="outerHTML" hx-post="{{ .Control.GetURL }}">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}">cancel</a>
+    </div>
+    <div class="control-input-wrapper flex-col">
+      <textarea name="value" cols="3">{{ .Control.Field.Value }}</textarea>
+      <div class="flex items-center">
+        {{ if .Control.GetError }}<div class="control-error">{{ .Control.GetError }}</div>{{ end }}
+        <button class="ml-auto" type="submit">Save</button>
+      </div>
+    </div>
+  </form>
+{{ end }}

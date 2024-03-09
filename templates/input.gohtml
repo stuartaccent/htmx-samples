@@ -1,0 +1,23 @@
+{{ define "inputRead" }}
+  <div class="control" hx-target="this" hx-swap="outerHTML">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}?edit">edit</a>
+    </div>
+    <div>{{ .Control.Field.Value }}</div>
+  </div>
+{{ end }}
+
+{{ define "inputEdit" }}
+  <form class="control" hx-target="this" hx-swap="outerHTML" hx-post="{{ .Control.GetURL }}">
+    <div class="control-label-wrapper">
+      <label>{{ .Control.GetLabel }}</label>
+      <a href="#" hx-get="{{ .Control.GetURL }}">cancel</a>
+    </div>
+    <div class="control-input-wrapper">
+      <input type="text" name="value" value="{{ .Control.Field.Value }}">
+      <button type="submit">Save</button>
+    </div>
+    {{ if .Control.GetError }}<div class="control-error">{{ .Control.GetError }}</div>{{ end }}
+  </form>
+{{ end }}
