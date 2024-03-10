@@ -12,11 +12,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Data struct {
+	InputValue        string
+	TextareaValue     string
+	ChoiceValue       string
+	MultiChoiceValues []string
+}
+
 var (
 	//go:embed static/*
 	staticFS embed.FS
 	//go:embed templates/*
 	templatesFS embed.FS
+	// data is a global variable to hold the form data
+	data = &Data{
+		InputValue:        "Lorem ipsum dolor sit amet",
+		TextareaValue:     "Lorem ipsum dolor sit amet, eum eligendi petentium temporibus te, et erant volumus erroribus duo. Id duo choro nullam philosophia.",
+		ChoiceValue:       "Option 1",
+		MultiChoiceValues: []string{"Option 1", "Option 2"},
+	}
 )
 
 func main() {
@@ -64,13 +78,13 @@ func InputHandler(c *gin.Context) {
 		ReadTemplate: "inputRead",
 		EditTemplate: "inputEdit",
 		SaveFunc: func(ct *controls.FormControl[controls.TextField]) error {
-			log.Printf("Saving: %s", ct.Field.Value)
+			data.InputValue = ct.Field.Value
 			return nil
 		},
 	}
 	// setting a value for the field on a GET request
 	if c.Request.Method == http.MethodGet {
-		control.Field.Value = "Lorem ipsum dolor sit amet"
+		control.Field.Value = data.InputValue
 	}
 	control.GinHandler(c)
 }
@@ -83,13 +97,13 @@ func TextareaHandler(c *gin.Context) {
 		ReadTemplate: "textareaRead",
 		EditTemplate: "textareaEdit",
 		SaveFunc: func(ct *controls.FormControl[controls.TextField]) error {
-			log.Printf("Saving: %s", ct.Field.Value)
+			data.TextareaValue = ct.Field.Value
 			return nil
 		},
 	}
 	// setting a value for the field on a GET request
 	if c.Request.Method == http.MethodGet {
-		control.Field.Value = "Lorem ipsum dolor sit amet, eum eligendi petentium temporibus te, et erant volumus erroribus duo. Id duo choro nullam philosophia."
+		control.Field.Value = data.TextareaValue
 	}
 	control.GinHandler(c)
 }
@@ -104,13 +118,13 @@ func ChoiceHandler(c *gin.Context) {
 		ReadTemplate: "choiceRead",
 		EditTemplate: "choiceEdit",
 		SaveFunc: func(ct *controls.FormControl[controls.ChoiceField]) error {
-			log.Printf("Saving: %s", ct.Field.Value)
+			data.ChoiceValue = ct.Field.Value
 			return nil
 		},
 	}
 	// setting a value for the field on a GET request
 	if c.Request.Method == http.MethodGet {
-		control.Field.Value = "Option 1"
+		control.Field.Value = data.ChoiceValue
 	}
 	control.GinHandler(c)
 }
@@ -125,13 +139,13 @@ func MultiChoiceHandler(c *gin.Context) {
 		ReadTemplate: "multiChoiceRead",
 		EditTemplate: "multiChoiceEdit",
 		SaveFunc: func(ct *controls.FormControl[controls.MultiChoiceField]) error {
-			log.Printf("Saving: %s", ct.Field.Values)
+			data.MultiChoiceValues = ct.Field.Values
 			return nil
 		},
 	}
 	// setting a value for the field on a GET request
 	if c.Request.Method == http.MethodGet {
-		control.Field.Values = []string{"Option 1", "Option 2"}
+		control.Field.Values = data.MultiChoiceValues
 	}
 	control.GinHandler(c)
 }
