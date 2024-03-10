@@ -58,40 +58,38 @@ func indexHandler(c *gin.Context) {
 
 func InputHandler(c *gin.Context) {
 	control := &controls.FormControl[controls.TextField]{
-		URL:   c.Request.URL.Path,
-		Label: "Input",
-		Field: controls.TextField{
-			Value: "Lorem ipsum dolor sit amet",
-		},
+		URL:          c.Request.URL.Path,
+		Label:        "Input",
+		Field:        controls.TextField{},
 		ReadTemplate: "inputRead",
 		EditTemplate: "inputEdit",
-		SaveFunc: func(tx *controls.FormControl[controls.TextField]) error {
-			log.Printf("Saving: %s", tx.Field.Value)
+		SaveFunc: func(ct *controls.FormControl[controls.TextField]) error {
+			log.Printf("Saving: %s", ct.Field.Value)
 			return nil
 		},
 	}
-	if c.Request.Method == http.MethodPost {
-		control.Field.Value = ""
+	// setting a value for the field on a GET request
+	if c.Request.Method == http.MethodGet {
+		control.Field.Value = "Lorem ipsum dolor sit amet"
 	}
 	control.GinHandler(c)
 }
 
 func TextareaHandler(c *gin.Context) {
 	control := &controls.FormControl[controls.TextField]{
-		URL:   c.Request.URL.Path,
-		Label: "Textarea",
-		Field: controls.TextField{
-			Value: "Lorem ipsum dolor sit amet, eum eligendi petentium temporibus te, et erant volumus erroribus duo. Id duo choro nullam philosophia.",
-		},
+		URL:          c.Request.URL.Path,
+		Label:        "Textarea",
+		Field:        controls.TextField{},
 		ReadTemplate: "textareaRead",
 		EditTemplate: "textareaEdit",
-		SaveFunc: func(tx *controls.FormControl[controls.TextField]) error {
-			log.Printf("Saving: %s", tx.Field.Value)
+		SaveFunc: func(ct *controls.FormControl[controls.TextField]) error {
+			log.Printf("Saving: %s", ct.Field.Value)
 			return nil
 		},
 	}
-	if c.Request.Method == http.MethodPost {
-		control.Field.Value = ""
+	// setting a value for the field on a GET request
+	if c.Request.Method == http.MethodGet {
+		control.Field.Value = "Lorem ipsum dolor sit amet, eum eligendi petentium temporibus te, et erant volumus erroribus duo. Id duo choro nullam philosophia."
 	}
 	control.GinHandler(c)
 }
@@ -101,18 +99,18 @@ func ChoiceHandler(c *gin.Context) {
 		URL:   c.Request.URL.Path,
 		Label: "Choice",
 		Field: controls.ChoiceField{
-			Value:   "Option 1",
 			Choices: []string{"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"},
 		},
 		ReadTemplate: "choiceRead",
 		EditTemplate: "choiceEdit",
-		SaveFunc: func(tx *controls.FormControl[controls.ChoiceField]) error {
-			log.Printf("Saving: %s", tx.Field.Value)
+		SaveFunc: func(ct *controls.FormControl[controls.ChoiceField]) error {
+			log.Printf("Saving: %s", ct.Field.Value)
 			return nil
 		},
 	}
-	if c.Request.Method == http.MethodPost {
-		control.Field.Value = ""
+	// setting a value for the field on a GET request
+	if c.Request.Method == http.MethodGet {
+		control.Field.Value = "Option 1"
 	}
 	control.GinHandler(c)
 }
@@ -122,18 +120,18 @@ func MultiChoiceHandler(c *gin.Context) {
 		URL:   c.Request.URL.Path,
 		Label: "Multi Choice",
 		Field: controls.MultiChoiceField{
-			Values:  []string{"Option 1", "Option 2"},
 			Choices: []string{"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"},
 		},
 		ReadTemplate: "multiChoiceRead",
 		EditTemplate: "multiChoiceEdit",
-		SaveFunc: func(tx *controls.FormControl[controls.MultiChoiceField]) error {
-			log.Printf("Saving: %s", tx.Field.Values)
+		SaveFunc: func(ct *controls.FormControl[controls.MultiChoiceField]) error {
+			log.Printf("Saving: %s", ct.Field.Values)
 			return nil
 		},
 	}
-	if c.Request.Method == http.MethodPost {
-		control.Field.Values = []string{}
+	// setting a value for the field on a GET request
+	if c.Request.Method == http.MethodGet {
+		control.Field.Values = []string{"Option 1", "Option 2"}
 	}
 	control.GinHandler(c)
 }
